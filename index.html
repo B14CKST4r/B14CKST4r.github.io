@@ -7,15 +7,19 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Major+Mono+Display&family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- 导航栏 -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#home" class="nav-logo">樊燊</a>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">首页</a></li>
+                <li><a href="#job-target" class="nav-link">求职意向</a></li>
                 <li><a href="#about" class="nav-link">关于我</a></li>
                 <li><a href="#self-eval" class="nav-link">自我评价</a></li>
                 <li><a href="#education" class="nav-link">教育背景</a></li>
@@ -47,6 +51,32 @@
             </div>
         </div>
         <canvas id="particles-canvas"></canvas>
+    </section>
+
+    <!-- 求职意向 -->
+    <section class="section job-target" id="job-target">
+        <div class="container">
+            <h2 class="section-title">求职意向</h2>
+            <div class="section-line"></div>
+            <div class="job-grid">
+                <div class="job-item">
+                    <span class="job-label">意向岗位</span>
+                    <span class="job-value">AI 编程工程师 / 软件开发工程师</span>
+                </div>
+                <div class="job-item">
+                    <span class="job-label">期望城市</span>
+                    <span class="job-value">任意 / 开放远程</span>
+                </div>
+                <div class="job-item">
+                    <span class="job-label">期望薪资</span>
+                    <span class="job-value">面议</span>
+                </div>
+                <div class="job-item">
+                    <span class="job-label">到岗时间</span>
+                    <span class="job-value">两周内到岗</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- 关于我 -->
@@ -92,22 +122,22 @@
             <div class="section-line"></div>
             <div class="eval-grid">
                 <div class="eval-card">
-                    <div class="eval-icon">🤖</div>
+                    <div class="eval-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="2"/><path d="M10 8l-3-3M14 8l3-3"/></svg></div>
                     <h3>AI 编程能力</h3>
                     <p>熟练使用 AI 编程工具（Claude Code、Cursor 等）提升开发效率，能独立完成从需求分析到部署上线的完整开发流程。</p>
                 </div>
                 <div class="eval-card">
-                    <div class="eval-icon">📚</div>
+                    <div class="eval-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/><path d="M8 7h8M8 11h6"/></svg></div>
                     <h3>快速学习</h3>
                     <p>对新技术保持好奇心，在校期间自学 Spring Boot、ECharts 等框架并成功应用于项目实践。</p>
                 </div>
                 <div class="eval-card">
-                    <div class="eval-icon">🤝</div>
+                    <div class="eval-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg></div>
                     <h3>团队协作</h3>
                     <p>担任社团副社长期间积累了丰富的沟通协调经验，机器人大赛中和团队紧密配合获得铜奖。</p>
                 </div>
                 <div class="eval-card">
-                    <div class="eval-icon">🔍</div>
+                    <div class="eval-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
                     <h3>踏实严谨</h3>
                     <p>实习期间负责数据库维护，认真排查异常数据；项目中注重代码规范和系统稳定性。</p>
                 </div>
@@ -149,7 +179,7 @@
             <div class="section-line"></div>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <div class="skill-icon">💻</div>
+                    <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="12" y1="2" x2="12" y2="22"/></svg></div>
                     <h3>编程语言</h3>
                     <div class="skill-list">
                         <div class="skill-row">
@@ -175,7 +205,7 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <div class="skill-icon">🔧</div>
+                    <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
                     <h3>框架与工具</h3>
                     <div class="skill-list">
                         <div class="skill-row">
@@ -201,7 +231,7 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <div class="skill-icon">🗄️</div>
+                    <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
                     <h3>数据库</h3>
                     <div class="skill-list">
                         <div class="skill-row">
@@ -217,7 +247,7 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <div class="skill-icon">☁️</div>
+                    <div class="skill-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.5 19H9a7 7 0 116.71-9h1.79a4.5 4.5 0 110 9z"/></svg></div>
                     <h3>大数据与运维</h3>
                     <div class="skill-list">
                         <div class="skill-row">
@@ -249,6 +279,12 @@
     <!-- 项目遮罩层 -->
     <div class="project-overlay" id="projectOverlay"></div>
 
+    <!-- 项目详情浮层 -->
+    <div class="project-modal" id="projectModal">
+        <button class="project-modal-close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <div class="project-modal-content" id="projectModalContent"></div>
+    </div>
+
     <!-- 项目经历 -->
     <section class="section projects" id="projects">
         <div class="container">
@@ -258,7 +294,7 @@
                 <!-- 项目1 -->
                 <div class="project-block" data-project="1">
                     <div class="project-block-summary">
-                        <span class="project-period">2025年6月 - 至今</span>
+                        <span class="project-period">2025年10月 - 2026年4月</span>
                         <h3 class="project-name">学生成绩管理系统</h3>
                         <p class="project-role">全栈开发</p>
                         <div class="project-tech">
@@ -267,7 +303,7 @@
                     </div>
                     <div class="project-block-detail">
                         <button class="project-close">✕</button>
-                        <span class="project-period">2025年6月 - 至今</span>
+                        <span class="project-period">2025年10月 - 2026年4月</span>
                         <h3 class="project-name">学生成绩管理系统</h3>
                         <p class="project-role">全栈开发</p>
                         <ul class="project-details">
@@ -355,6 +391,35 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 项目5 -->
+                <div class="project-block" data-project="5">
+                    <div class="project-block-summary">
+                        <span class="project-period">合作项目</span>
+                        <h3 class="project-name">DnD DiceBot</h3>
+                        <p class="project-role">协作开发</p>
+                        <div class="project-tech">
+                            <span>GitHub</span><span>开源协作</span>
+                        </div>
+                    </div>
+                    <div class="project-block-detail">
+                        <button class="project-close">✕</button>
+                        <span class="project-period">合作项目</span>
+                        <h3 class="project-name">DnD DiceBot</h3>
+                        <p class="project-role">协作开发</p>
+                        <ul class="project-details">
+                            <li>与朋友合作开发的 D&D 骰子机器人项目</li>
+                            <li>参与项目协作开发，使用 Git 进行版本控制与团队协作</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>GitHub</span><span>开源协作</span>
+                        </div>
+                        <a href="https://github.com/illusory23/DnD-DiceBot-" target="_blank" rel="noopener" class="project-link">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                            查看 GitHub 仓库
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -388,7 +453,7 @@
             <h2 class="section-title">校园经历</h2>
             <div class="section-line"></div>
             <div class="campus-card">
-                <div class="campus-icon">🎓</div>
+                <div class="campus-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10l-10-7-10 7 10 7 10-7z"/><path d="M6 12v5c0 2 3 4 6 4s6-2 6-4v-5"/></svg></div>
                 <div class="campus-content">
                     <div class="campus-period">2022年9月 - 至今</div>
                     <h3>社团副社长</h3>
@@ -406,17 +471,17 @@
             <p class="contact-intro">期待与您的交流，欢迎通过以下方式联系我</p>
             <div class="contact-cards">
                 <a href="mailto:2992750429@qq.com" class="contact-card">
-                    <div class="contact-icon">📧</div>
+                    <div class="contact-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg></div>
                     <h3>电子邮箱</h3>
                     <p>2992750429@qq.com</p>
                 </a>
                 <a href="tel:13991276136" class="contact-card">
-                    <div class="contact-icon">📱</div>
+                    <div class="contact-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
                     <h3>手机号码</h3>
                     <p>13991276136</p>
                 </a>
                 <div class="contact-card">
-                    <div class="contact-icon">📍</div>
+                    <div class="contact-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
                     <h3>所在地</h3>
                     <p>陕西·西安</p>
                 </div>

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initActiveNavLink();
     initBackToTop();
+    initScrollProgress();
 });
 
 // ===== 主题切换 =====
@@ -199,7 +200,7 @@ function initNavbarScroll() {
 // ===== 滚动显示动画 =====
 function initScrollReveal() {
     const revealElements = document.querySelectorAll(
-        '.project-block, .skill-category, .eval-card, .edu-card, .exp-card, .campus-card, .contact-card, .about-content'
+        '.project-block, .skill-category, .eval-card, .job-item, .edu-card, .exp-card, .campus-card, .contact-card, .about-content'
     );
 
     revealElements.forEach(el => {
@@ -292,6 +293,19 @@ function initBackToTop() {
     });
 }
 
+// ===== 滚动进度条 =====
+function initScrollProgress() {
+    const bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = Math.min(progress, 100) + '%';
+    });
+}
+
 // ===== 视差效果（Hero区域） =====
 window.addEventListener('scroll', () => {
     const heroBg = document.querySelector('.hero-bg');
@@ -303,11 +317,22 @@ window.addEventListener('scroll', () => {
 
 // ===== 项目网格居中展开/收起 =====
 function initAccordion() {
-    const grid = document.getElementById('projectsGrid');
     const blocks = document.querySelectorAll('.project-block');
     const overlay = document.getElementById('projectOverlay');
+    const modal = document.getElementById('projectModal');
+    const modalContent = document.getElementById('projectModalContent');
+    const modalClose = modal.querySelector('.project-modal-close');
     let activeBlock = null;
     let originalRect = null;
+
+    function getTarget() {
+        const targetWidth = 700;
+        return {
+            left: (window.innerWidth - targetWidth) / 2,
+            top: Math.max(80, (window.innerHeight - 500) / 2),
+            width: targetWidth
+        };
+    }
 
     function expand(block) {
         if (activeBlock) return;
@@ -316,30 +341,27 @@ function initAccordion() {
         originalRect = rect;
         activeBlock = block;
 
-        // 设置 fixed 定位的初始位置（当前屏幕位置）
-        block.style.position = 'fixed';
-        block.style.left = rect.left + 'px';
-        block.style.top = rect.top + 'px';
-        block.style.width = rect.width + 'px';
-        block.style.margin = '0';
+        // 卡片占位（保持网格不动）
+        block.classList.add('placeholder');
 
-        // 强制回流后开始动画
-        block.offsetHeight;
+        // 填充浮层内容
+        const detail = block.querySelector('.project-block-detail');
+        modalContent.innerHTML = detail.innerHTML;
 
-        // 目标：居中，宽度 700px
-        const targetWidth = 700;
-        const targetLeft = (window.innerWidth - targetWidth) / 2;
-        const targetTop = Math.max(80, (window.innerHeight - 500) / 2);
+        // 浮层初始位置 = 卡片位置
+        modal.style.left = rect.left + 'px';
+        modal.style.top = rect.top + 'px';
+        modal.style.width = rect.width + 'px';
+        modal.classList.add('active');
 
-        block.style.left = targetLeft + 'px';
-        block.style.top = targetTop + 'px';
-        block.style.width = targetWidth + 'px';
-        block.classList.add('expanded');
+        // 强制回流
+        modal.offsetHeight;
 
-        // 其他卡片变暗
-        blocks.forEach(b => {
-            if (b !== block) b.classList.add('dimmed');
-        });
+        // 动画到中央
+        const target = getTarget();
+        modal.style.left = target.left + 'px';
+        modal.style.top = target.top + 'px';
+        modal.style.width = target.width + 'px';
 
         // 显示遮罩
         overlay.classList.add('active');
@@ -351,45 +373,39 @@ function initAccordion() {
         const block = activeBlock;
         const rect = originalRect;
 
-        // 动画回到原位
-        block.style.left = rect.left + 'px';
-        block.style.top = rect.top + 'px';
-        block.style.width = rect.width + 'px';
-        block.classList.remove('expanded');
+        // 浮层动画回到卡片位置
+        modal.style.left = rect.left + 'px';
+        modal.style.top = rect.top + 'px';
+        modal.style.width = rect.width + 'px';
+        modal.classList.remove('active');
 
         // 隐藏遮罩
         overlay.classList.remove('active');
 
-        // 等主卡片归位动画完成（0.5s）后，同步恢复其他卡片并清理
+        // 动画结束后清理
         setTimeout(() => {
-            blocks.forEach(b => b.classList.remove('dimmed'));
-            block.style.position = '';
-            block.style.left = '';
-            block.style.top = '';
-            block.style.width = '';
-            block.style.margin = '';
-            if (activeBlock === block) {
-                activeBlock = null;
-                originalRect = null;
-            }
+            block.classList.remove('placeholder');
+            modal.style.left = '';
+            modal.style.top = '';
+            modal.style.width = '';
+            modalContent.innerHTML = '';
+            activeBlock = null;
+            originalRect = null;
         }, 500);
     }
 
     // 点击卡片展开
     blocks.forEach(block => {
         block.addEventListener('click', () => {
-            if (block.classList.contains('expanded')) return;
             if (activeBlock) return;
             expand(block);
         });
     });
 
     // 关闭按钮
-    document.querySelectorAll('.project-close').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            collapse();
-        });
+    modalClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        collapse();
     });
 
     // 点击遮罩关闭
@@ -407,15 +423,13 @@ function initAccordion() {
     // 窗口大小变化时更新位置
     window.addEventListener('resize', () => {
         if (!activeBlock) return;
-        const targetWidth = 700;
-        const targetLeft = (window.innerWidth - targetWidth) / 2;
-        const targetTop = Math.max(80, (window.innerHeight - 500) / 2);
-        activeBlock.style.left = targetLeft + 'px';
-        activeBlock.style.top = targetTop + 'px';
-        activeBlock.style.width = targetWidth + 'px';
+        const target = getTarget();
+        modal.style.left = target.left + 'px';
+        modal.style.top = target.top + 'px';
+        modal.style.width = target.width + 'px';
     });
 
-    // 大幅滚动时自动关闭（避免回归位置错乱）
+    // 大幅滚动时自动关闭
     let scrollThreshold = 0;
     window.addEventListener('scroll', () => {
         if (!activeBlock) {
