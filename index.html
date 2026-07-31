@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=Major+Mono+Display&family=Noto+Sans+SC:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- 导航栏 -->
@@ -227,16 +227,16 @@
                         </div>
                         <div class="skill-row">
                             <span class="skill-name">Spark</span>
-                            <span class="skill-level level-familiar">了解</span>
-                            <span class="skill-from">课程学习</span>
-                        </div>
-                        <div class="skill-row">
-                            <span class="skill-name">Hadoop</span>
-                            <span class="skill-level level-familiar">了解</span>
+                            <span class="skill-level level-proficient">熟练</span>
                             <span class="skill-from">课程学习</span>
                         </div>
                         <div class="skill-row">
                             <span class="skill-name">Linux / Docker</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">课程学习</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">Hadoop</span>
                             <span class="skill-level level-familiar">了解</span>
                             <span class="skill-from">课程学习</span>
                         </div>
@@ -246,74 +246,113 @@
         </div>
     </section>
 
+    <!-- 项目遮罩层 -->
+    <div class="project-overlay" id="projectOverlay"></div>
+
     <!-- 项目经历 -->
     <section class="section projects" id="projects">
         <div class="container">
             <h2 class="section-title">项目经历</h2>
             <div class="section-line"></div>
-            <div class="projects-list">
+            <div class="projects-grid" id="projectsGrid">
                 <!-- 项目1 -->
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="project-block" data-project="1">
+                    <div class="project-block-summary">
                         <span class="project-period">2025年6月 - 至今</span>
                         <h3 class="project-name">学生成绩管理系统</h3>
+                        <p class="project-role">全栈开发</p>
+                        <div class="project-tech">
+                            <span>Spring Boot</span><span>MySQL</span><span>JSP</span><span>JSTL</span><span>JavaScript</span>
+                        </div>
                     </div>
-                    <p class="project-role">全栈开发</p>
-                    <ul class="project-details">
-                        <li>独立完成从需求分析、系统设计、数据库建模到前后端开发的全流程开发</li>
-                        <li>使用 <strong>Spring Boot</strong> 框架实现业务逻辑与权限控制，使用 <strong>MySQL</strong> 进行数据持久化并优化查询性能</li>
-                        <li>使用 <strong>JSP + JSTL</strong> 技术实现动态页面渲染，通过 <strong>JavaScript</strong> 原生代码实现简洁流畅的前端交互</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>Spring Boot</span><span>MySQL</span><span>JSP</span><span>JSTL</span><span>JavaScript</span>
+                    <div class="project-block-detail">
+                        <button class="project-close">✕</button>
+                        <span class="project-period">2025年6月 - 至今</span>
+                        <h3 class="project-name">学生成绩管理系统</h3>
+                        <p class="project-role">全栈开发</p>
+                        <ul class="project-details">
+                            <li>独立完成从需求分析、系统设计、数据库建模到前后端开发的全流程开发</li>
+                            <li>使用 <strong>Spring Boot</strong> 框架实现业务逻辑与权限控制，使用 <strong>MySQL</strong> 进行数据持久化并优化查询性能</li>
+                            <li>使用 <strong>JSP + JSTL</strong> 技术实现动态页面渲染，通过 <strong>JavaScript</strong> 原生代码实现简洁流畅的前端交互</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>Spring Boot</span><span>MySQL</span><span>JSP</span><span>JSTL</span><span>JavaScript</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 项目2 -->
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="project-block" data-project="2">
+                    <div class="project-block-summary">
                         <span class="project-period">2024年5月 - 2024年6月</span>
                         <h3 class="project-name">数据可视化大屏</h3>
+                        <p class="project-role">数据预处理 + 前端呈现</p>
+                        <div class="project-tech">
+                            <span>Python</span><span>Pandas</span><span>NumPy</span><span>MySQL</span><span>ECharts</span>
+                        </div>
                     </div>
-                    <p class="project-role">数据预处理 + 前端呈现</p>
-                    <ul class="project-details">
-                        <li>数据预处理：使用 <strong>Python</strong> 中的 Pandas、NumPy 库进行数据清洗、标准化和特征工程，将多维数据降维后导入 <strong>MySQL</strong> 并提取关键业务指标</li>
-                        <li>前端呈现：使用 <strong>HTML + CSS + JavaScript</strong> 搭建前端框架，使用 <strong>ECharts</strong> 实现数据可视化，支持多维度数据筛选与图形动态展示，追踪用户行为轨迹</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>Python</span><span>Pandas</span><span>NumPy</span><span>MySQL</span><span>ECharts</span><span>JavaScript</span>
+                    <div class="project-block-detail">
+                        <button class="project-close">✕</button>
+                        <span class="project-period">2024年5月 - 2024年6月</span>
+                        <h3 class="project-name">数据可视化大屏</h3>
+                        <p class="project-role">数据预处理 + 前端呈现</p>
+                        <ul class="project-details">
+                            <li>数据预处理：使用 <strong>Python</strong> 中的 Pandas、NumPy 库进行数据清洗、标准化和特征工程，将多维数据降维后导入 <strong>MySQL</strong> 并提取关键业务指标</li>
+                            <li>前端呈现：使用 <strong>HTML + CSS + JavaScript</strong> 搭建前端框架，使用 <strong>ECharts</strong> 实现数据可视化，支持多维度数据筛选与图形动态展示，追踪用户行为轨迹</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>Python</span><span>Pandas</span><span>NumPy</span><span>MySQL</span><span>ECharts</span><span>JavaScript</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 项目3 -->
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="project-block" data-project="3">
+                    <div class="project-block-summary">
                         <span class="project-period">2023年10月 - 2023年12月</span>
                         <h3 class="project-name">智能备忘录</h3>
+                        <p class="project-role">全栈开发</p>
+                        <div class="project-tech">
+                            <span>Java Swing</span><span>AI大模型</span><span>GUI</span>
+                        </div>
                     </div>
-                    <p class="project-role">全栈开发</p>
-                    <ul class="project-details">
-                        <li>使用 <strong>Java Swing</strong> 实现 GUI 界面，支持事件添加、编辑、删除、实时整点时间显示等核心功能</li>
-                        <li>接入 <strong>AI 大模型</strong>，实现日程事件智能分析与自动时间规划建议，显著增强产品智能化用户体验</li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>Java Swing</span><span>AI大模型</span><span>GUI</span>
+                    <div class="project-block-detail">
+                        <button class="project-close">✕</button>
+                        <span class="project-period">2023年10月 - 2023年12月</span>
+                        <h3 class="project-name">智能备忘录</h3>
+                        <p class="project-role">全栈开发</p>
+                        <ul class="project-details">
+                            <li>使用 <strong>Java Swing</strong> 实现 GUI 界面，支持事件添加、编辑、删除、实时整点时间显示等核心功能</li>
+                            <li>接入 <strong>AI 大模型</strong>，实现日程事件智能分析与自动时间规划建议，显著增强产品智能化用户体验</li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>Java Swing</span><span>AI大模型</span><span>GUI</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- 项目4 -->
-                <div class="project-card">
-                    <div class="project-header">
+                <div class="project-block" data-project="4">
+                    <div class="project-block-summary">
                         <span class="project-period">2023年4月 - 2023年6月</span>
                         <h3 class="project-name">中国机器人大赛 · 机器人系统调试</h3>
+                        <p class="project-role">机器人调试 · 系统测试</p>
+                        <div class="project-tech">
+                            <span>C语言</span><span>机器人控制</span><span>系统调试</span>
+                        </div>
                     </div>
-                    <p class="project-role">机器人调试 · 系统测试</p>
-                    <ul class="project-details">
-                        <li>使用 <strong>C语言</strong> 对机器人核心传动模块进行调试和参数优化，提升执行精度，将任务完成时间缩短约10秒</li>
-                        <li>参与系统测试和赛前全面功能验证，协助排查潜在故障，最终团队获得<strong>优秀奖</strong></li>
-                    </ul>
-                    <div class="project-tech">
-                        <span>C语言</span><span>机器人控制</span><span>系统调试</span>
+                    <div class="project-block-detail">
+                        <button class="project-close">✕</button>
+                        <span class="project-period">2023年4月 - 2023年6月</span>
+                        <h3 class="project-name">中国机器人大赛 · 机器人系统调试</h3>
+                        <p class="project-role">机器人调试 · 系统测试</p>
+                        <ul class="project-details">
+                            <li>使用 <strong>C语言</strong> 对机器人核心传动模块进行调试和参数优化，提升执行精度，将任务完成时间缩短约10秒</li>
+                            <li>参与系统测试和赛前全面功能验证，协助排查潜在故障，最终团队获得<strong>优秀奖</strong></li>
+                        </ul>
+                        <div class="project-tech">
+                            <span>C语言</span><span>机器人控制</span><span>系统调试</span>
+                        </div>
                     </div>
                 </div>
             </div>

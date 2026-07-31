@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMouseGlow();
     initNavbarScroll();
     initScrollReveal();
+    initAccordion();
     initSmoothScroll();
     initActiveNavLink();
     initBackToTop();
@@ -33,10 +34,10 @@ function initTheme() {
 // ===== 打字机效果 =====
 function initTypingEffect() {
     const texts = [
-        '应届毕业生 · 数据科学与大数据技术',
-        'AI编程工程师',
-        'Spring Boot / Python / ECharts / MySQL',
-        '用技术创造价值'
+        '> 应届毕业生 · 数据科学与大数据技术',
+        '> AI编程工程师',
+        '> Spring Boot / Python / ECharts / MySQL',
+        '> build(); deploy(); iterate();'
     ];
     const typingEl = document.querySelector('.typing-text');
     let textIndex = 0;
@@ -111,7 +112,7 @@ function initParticles() {
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+            ctx.fillStyle = `rgba(0, 255, 136, ${this.opacity})`;
             ctx.fill();
         }
     }
@@ -138,7 +139,7 @@ function initParticles() {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(99, 102, 241, ${0.08 * (1 - dist / 120)})`;
+                    ctx.strokeStyle = `rgba(0, 255, 136, ${0.08 * (1 - dist / 120)})`;
                     ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }
@@ -198,7 +199,7 @@ function initNavbarScroll() {
 // ===== 滚动显示动画 =====
 function initScrollReveal() {
     const revealElements = document.querySelectorAll(
-        '.project-card, .skill-category, .eval-card, .edu-card, .exp-card, .campus-card, .contact-card, .about-content'
+        '.project-block, .skill-category, .eval-card, .edu-card, .exp-card, .campus-card, .contact-card, .about-content'
     );
 
     revealElements.forEach(el => {
@@ -267,7 +268,7 @@ function initActiveNavLink() {
         navLinks.forEach(link => {
             link.style.color = '';
             if (link.getAttribute('href') === '#' + current) {
-                link.style.color = '#6366f1';
+                link.style.color = '#00ff88';
             }
         });
     });
@@ -300,21 +301,129 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ===== 项目卡片 hover 3D 微动效果 =====
-document.querySelectorAll('.project-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = (y - centerY) / centerY * -3;
-        const rotateY = (x - centerX) / centerX * 3;
+// ===== 项目网格居中展开/收起 =====
+function initAccordion() {
+    const grid = document.getElementById('projectsGrid');
+    const blocks = document.querySelectorAll('.project-block');
+    const overlay = document.getElementById('projectOverlay');
+    let activeBlock = null;
+    let originalRect = null;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(4px)`;
+    function expand(block) {
+        if (activeBlock) return;
+
+        const rect = block.getBoundingClientRect();
+        originalRect = rect;
+        activeBlock = block;
+
+        // 设置 fixed 定位的初始位置（当前屏幕位置）
+        block.style.position = 'fixed';
+        block.style.left = rect.left + 'px';
+        block.style.top = rect.top + 'px';
+        block.style.width = rect.width + 'px';
+        block.style.margin = '0';
+
+        // 强制回流后开始动画
+        block.offsetHeight;
+
+        // 目标：居中，宽度 700px
+        const targetWidth = 700;
+        const targetLeft = (window.innerWidth - targetWidth) / 2;
+        const targetTop = Math.max(80, (window.innerHeight - 500) / 2);
+
+        block.style.left = targetLeft + 'px';
+        block.style.top = targetTop + 'px';
+        block.style.width = targetWidth + 'px';
+        block.classList.add('expanded');
+
+        // 其他卡片变暗
+        blocks.forEach(b => {
+            if (b !== block) b.classList.add('dimmed');
+        });
+
+        // 显示遮罩
+        overlay.classList.add('active');
+    }
+
+    function collapse() {
+        if (!activeBlock) return;
+
+        const block = activeBlock;
+        const rect = originalRect;
+
+        // 动画回到原位
+        block.style.left = rect.left + 'px';
+        block.style.top = rect.top + 'px';
+        block.style.width = rect.width + 'px';
+        block.classList.remove('expanded');
+
+        // 隐藏遮罩
+        overlay.classList.remove('active');
+
+        // 等主卡片归位动画完成（0.5s）后，同步恢复其他卡片并清理
+        setTimeout(() => {
+            blocks.forEach(b => b.classList.remove('dimmed'));
+            block.style.position = '';
+            block.style.left = '';
+            block.style.top = '';
+            block.style.width = '';
+            block.style.margin = '';
+            if (activeBlock === block) {
+                activeBlock = null;
+                originalRect = null;
+            }
+        }, 500);
+    }
+
+    // 点击卡片展开
+    blocks.forEach(block => {
+        block.addEventListener('click', () => {
+            if (block.classList.contains('expanded')) return;
+            if (activeBlock) return;
+            expand(block);
+        });
     });
 
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateX(0)';
+    // 关闭按钮
+    document.querySelectorAll('.project-close').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            collapse();
+        });
     });
-});
+
+    // 点击遮罩关闭
+    overlay.addEventListener('click', () => {
+        collapse();
+    });
+
+    // ESC 关闭
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && activeBlock) {
+            collapse();
+        }
+    });
+
+    // 窗口大小变化时更新位置
+    window.addEventListener('resize', () => {
+        if (!activeBlock) return;
+        const targetWidth = 700;
+        const targetLeft = (window.innerWidth - targetWidth) / 2;
+        const targetTop = Math.max(80, (window.innerHeight - 500) / 2);
+        activeBlock.style.left = targetLeft + 'px';
+        activeBlock.style.top = targetTop + 'px';
+        activeBlock.style.width = targetWidth + 'px';
+    });
+
+    // 大幅滚动时自动关闭（避免回归位置错乱）
+    let scrollThreshold = 0;
+    window.addEventListener('scroll', () => {
+        if (!activeBlock) {
+            scrollThreshold = window.scrollY;
+            return;
+        }
+        if (Math.abs(window.scrollY - scrollThreshold) > 100) {
+            collapse();
+        }
+    });
+}
