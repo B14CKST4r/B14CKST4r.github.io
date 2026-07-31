@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>樊燊 - 个人主页</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">樊燊</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">首页</a></li>
+                <li><a href="#about" class="nav-link">关于我</a></li>
+                <li><a href="#self-eval" class="nav-link">自我评价</a></li>
+                <li><a href="#education" class="nav-link">教育背景</a></li>
+                <li><a href="#skills" class="nav-link">技术能力</a></li>
+                <li><a href="#projects" class="nav-link">项目经历</a></li>
+                <li><a href="#experience" class="nav-link">实习经历</a></li>
+                <li><a href="#contact" class="nav-link">联系方式</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                <span class="theme-icon-dark">🌙</span>
+                <span class="theme-icon-light">☀️</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-greeting">你好，我是</p>
+            <h1 class="hero-name">樊燊</h1>
+            <div class="hero-typing">
+                <span class="typing-text"></span><span class="typing-cursor">|</span>
+            </div>
+            <p class="hero-desc">数据科学与大数据技术专业应届毕业生，擅长 AI 辅助编程，具备前后端与数据工程开发能力</p>
+            <div class="hero-btns">
+                <a href="#projects" class="btn btn-primary">查看项目</a>
+                <a href="#contact" class="btn btn-outline">联系我</a>
+            </div>
+        </div>
+        <canvas id="particles-canvas"></canvas>
+    </section>
+
+    <!-- 关于我 -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="section-line"></div>
+            <div class="about-content">
+                <div class="about-avatar">
+                    <div class="avatar-placeholder">樊</div>
+                </div>
+                <div class="about-text">
+                    <p>我是樊燊，2003年12月出生，毕业于西京学院数据科学与大数据技术专业。</p>
+                    <p>在校期间，我系统学习了Spark、数据库原理、计算机组成设计、机器学习、操作系统等核心课程，打下了扎实的理论基础。同时，我积极参与各类项目实践和竞赛活动，将理论知识转化为实际能力。</p>
+                    <p>我对技术充满热情，具备前后端与数据工程的综合开发能力，熟悉从前端到后端、从数据处理到可视化的完整技术链路。善于运用 AI 编程工具提升开发效率，乐于接受挑战，期待在技术领域不断成长。</p>
+                    <div class="about-info">
+                        <div class="info-item">
+                            <span class="info-label">年龄</span>
+                            <span class="info-value">22岁</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">所在地</span>
+                            <span class="info-value">陕西·西安</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">学历</span>
+                            <span class="info-value">本科</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">状态</span>
+                            <span class="info-value">应届毕业生</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 自我评价 -->
+    <section class="section self-eval" id="self-eval">
+        <div class="container">
+            <h2 class="section-title">自我评价</h2>
+            <div class="section-line"></div>
+            <div class="eval-grid">
+                <div class="eval-card">
+                    <div class="eval-icon">🤖</div>
+                    <h3>AI 编程能力</h3>
+                    <p>熟练使用 AI 编程工具（Claude Code、Cursor 等）提升开发效率，能独立完成从需求分析到部署上线的完整开发流程。</p>
+                </div>
+                <div class="eval-card">
+                    <div class="eval-icon">📚</div>
+                    <h3>快速学习</h3>
+                    <p>对新技术保持好奇心，在校期间自学 Spring Boot、ECharts 等框架并成功应用于项目实践。</p>
+                </div>
+                <div class="eval-card">
+                    <div class="eval-icon">🤝</div>
+                    <h3>团队协作</h3>
+                    <p>担任社团副社长期间积累了丰富的沟通协调经验，机器人大赛中和团队紧密配合获得铜奖。</p>
+                </div>
+                <div class="eval-card">
+                    <div class="eval-icon">🔍</div>
+                    <h3>踏实严谨</h3>
+                    <p>实习期间负责数据库维护，认真排查异常数据；项目中注重代码规范和系统稳定性。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section class="section education" id="education">
+        <div class="container">
+            <h2 class="section-title">教育背景</h2>
+            <div class="section-line"></div>
+            <div class="edu-card">
+                <div class="edu-timeline-dot"></div>
+                <div class="edu-content">
+                    <div class="edu-period">2022年9月 - 2026年7月</div>
+                    <h3 class="edu-school">西京学院</h3>
+                    <p class="edu-major">数据科学与大数据技术专业 · 本科</p>
+                    <div class="edu-courses">
+                        <h4>相关课程</h4>
+                        <div class="course-tags">
+                            <span class="course-tag">Spark</span>
+                            <span class="course-tag">数据库原理</span>
+                            <span class="course-tag">计算机组成设计</span>
+                            <span class="course-tag">机器学习</span>
+                            <span class="course-tag">操作系统</span>
+                            <span class="course-tag">逻辑与计算机程序设计</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术能力 -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">技术能力</h2>
+            <div class="section-line"></div>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-icon">💻</div>
+                    <h3>编程语言</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">数据可视化大屏</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">成绩管理系统 · 智能备忘录</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">HTML / CSS / JS</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">数据可视化大屏 · 成绩管理系统</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">C</span>
+                            <span class="skill-level level-competent">掌握</span>
+                            <span class="skill-from">机器人大赛</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">🔧</div>
+                    <h3>框架与工具</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
+                            <span class="skill-name">Spring Boot</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">成绩管理系统</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">ECharts</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">数据可视化大屏</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">JSP / JSTL</span>
+                            <span class="skill-level level-competent">掌握</span>
+                            <span class="skill-from">成绩管理系统</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">Java Swing</span>
+                            <span class="skill-level level-competent">掌握</span>
+                            <span class="skill-from">智能备忘录</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">🗄️</div>
+                    <h3>数据库</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
+                            <span class="skill-name">MySQL</span>
+                            <span class="skill-level level-proficient">熟练</span>
+                            <span class="skill-from">成绩管理系统 · 数据大屏 · 实习</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">MongoDB</span>
+                            <span class="skill-level level-familiar">了解</span>
+                            <span class="skill-from">课程学习</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <div class="skill-icon">☁️</div>
+                    <h3>大数据与运维</h3>
+                    <div class="skill-list">
+                        <div class="skill-row">
+                            <span class="skill-name">Pandas / NumPy</span>
+                            <span class="skill-level level-competent">掌握</span>
+                            <span class="skill-from">数据可视化大屏</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">Spark</span>
+                            <span class="skill-level level-familiar">了解</span>
+                            <span class="skill-from">课程学习</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">Hadoop</span>
+                            <span class="skill-level level-familiar">了解</span>
+                            <span class="skill-from">课程学习</span>
+                        </div>
+                        <div class="skill-row">
+                            <span class="skill-name">Linux / Docker</span>
+                            <span class="skill-level level-familiar">了解</span>
+                            <span class="skill-from">课程学习</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目经历 -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">项目经历</h2>
+            <div class="section-line"></div>
+            <div class="projects-list">
+                <!-- 项目1 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-period">2025年6月 - 至今</span>
+                        <h3 class="project-name">学生成绩管理系统</h3>
+                    </div>
+                    <p class="project-role">全栈开发</p>
+                    <ul class="project-details">
+                        <li>独立完成从需求分析、系统设计、数据库建模到前后端开发的全流程开发</li>
+                        <li>使用 <strong>Spring Boot</strong> 框架实现业务逻辑与权限控制，使用 <strong>MySQL</strong> 进行数据持久化并优化查询性能</li>
+                        <li>使用 <strong>JSP + JSTL</strong> 技术实现动态页面渲染，通过 <strong>JavaScript</strong> 原生代码实现简洁流畅的前端交互</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>Spring Boot</span><span>MySQL</span><span>JSP</span><span>JSTL</span><span>JavaScript</span>
+                    </div>
+                </div>
+
+                <!-- 项目2 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-period">2024年5月 - 2024年6月</span>
+                        <h3 class="project-name">数据可视化大屏</h3>
+                    </div>
+                    <p class="project-role">数据预处理 + 前端呈现</p>
+                    <ul class="project-details">
+                        <li>数据预处理：使用 <strong>Python</strong> 中的 Pandas、NumPy 库进行数据清洗、标准化和特征工程，将多维数据降维后导入 <strong>MySQL</strong> 并提取关键业务指标</li>
+                        <li>前端呈现：使用 <strong>HTML + CSS + JavaScript</strong> 搭建前端框架，使用 <strong>ECharts</strong> 实现数据可视化，支持多维度数据筛选与图形动态展示，追踪用户行为轨迹</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>Python</span><span>Pandas</span><span>NumPy</span><span>MySQL</span><span>ECharts</span><span>JavaScript</span>
+                    </div>
+                </div>
+
+                <!-- 项目3 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-period">2023年10月 - 2023年12月</span>
+                        <h3 class="project-name">智能备忘录</h3>
+                    </div>
+                    <p class="project-role">全栈开发</p>
+                    <ul class="project-details">
+                        <li>使用 <strong>Java Swing</strong> 实现 GUI 界面，支持事件添加、编辑、删除、实时整点时间显示等核心功能</li>
+                        <li>接入 <strong>AI 大模型</strong>，实现日程事件智能分析与自动时间规划建议，显著增强产品智能化用户体验</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>Java Swing</span><span>AI大模型</span><span>GUI</span>
+                    </div>
+                </div>
+
+                <!-- 项目4 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <span class="project-period">2023年4月 - 2023年6月</span>
+                        <h3 class="project-name">中国机器人大赛 · 机器人系统调试</h3>
+                    </div>
+                    <p class="project-role">机器人调试 · 系统测试</p>
+                    <ul class="project-details">
+                        <li>使用 <strong>C语言</strong> 对机器人核心传动模块进行调试和参数优化，提升执行精度，将任务完成时间缩短约10秒</li>
+                        <li>参与系统测试和赛前全面功能验证，协助排查潜在故障，最终团队获得<strong>优秀奖</strong></li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>C语言</span><span>机器人控制</span><span>系统调试</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 实习经历 -->
+    <section class="section experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">实习经历</h2>
+            <div class="section-line"></div>
+            <div class="exp-card">
+                <div class="exp-timeline">
+                    <div class="exp-timeline-dot"></div>
+                    <div class="exp-timeline-line"></div>
+                </div>
+                <div class="exp-content">
+                    <div class="exp-period">2025年7月 - 2025年8月</div>
+                    <h3 class="exp-company">西安一泰科技有限公司</h3>
+                    <p class="exp-role">数据库维护实习生</p>
+                    <ul class="exp-details">
+                        <li>参与公司日常数据库维护工作，监控日志并排查异常数据</li>
+                        <li>学习使用 SQL 工具进行数据库问题排查与修复操作</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园经历 -->
+    <section class="section campus" id="campus">
+        <div class="container">
+            <h2 class="section-title">校园经历</h2>
+            <div class="section-line"></div>
+            <div class="campus-card">
+                <div class="campus-icon">🎓</div>
+                <div class="campus-content">
+                    <div class="campus-period">2022年9月 - 至今</div>
+                    <h3>社团副社长</h3>
+                    <p>在校期间担任社团副社长，负责社团日常管理与校内外沟通协调工作。积极与校外公司沟通达成合作，成功举办多场校园活动。建立并维护校友联系网络，多次举办跨校展览与交流活动。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">联系方式</h2>
+            <div class="section-line"></div>
+            <p class="contact-intro">期待与您的交流，欢迎通过以下方式联系我</p>
+            <div class="contact-cards">
+                <a href="mailto:2992750429@qq.com" class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>电子邮箱</h3>
+                    <p>2992750429@qq.com</p>
+                </a>
+                <a href="tel:13991276136" class="contact-card">
+                    <div class="contact-icon">📱</div>
+                    <h3>手机号码</h3>
+                    <p>13991276136</p>
+                </a>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>所在地</h3>
+                    <p>陕西·西安</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 樊燊. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
+
+    <!-- 鼠标光晕 -->
+    <div class="mouse-glow" id="mouseGlow"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
