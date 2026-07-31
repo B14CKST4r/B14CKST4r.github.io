@@ -753,6 +753,7 @@ body::after {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    transition: opacity 0.15s ease;
 }
 
 .project-block-summary .project-tech {
@@ -760,8 +761,10 @@ body::after {
 }
 
 .project-block-detail {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
     padding: 40px;
+    transition: opacity 0.35s ease 0.45s;
 }
 
 .project-close {
@@ -803,11 +806,14 @@ body::after {
 }
 
 .project-block.expanded .project-block-summary {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
 }
 
 .project-block.expanded .project-block-detail {
-    display: block;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .project-block.dimmed {
