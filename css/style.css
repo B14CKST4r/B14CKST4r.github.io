@@ -45,7 +45,10 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
+    scroll-padding-top: 0;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
 }
 
 body {
@@ -425,13 +428,121 @@ body::after {
 
 /* ===== 通用 Section 样式 ===== */
 .section {
-    padding: 100px 0;
-    border-top: 1px solid var(--border);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 80px 0;
     position: relative;
+    overflow: hidden;
 }
 
-.section:first-of-type {
-    border-top: none;
+.section .container {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* 段落背景装饰 */
+.section::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.04;
+    pointer-events: none;
+}
+
+.section:nth-child(odd)::after {
+    background: var(--primary);
+    top: -100px;
+    right: -100px;
+}
+
+.section:nth-child(even)::after {
+    background: var(--accent);
+    bottom: -100px;
+    left: -100px;
+}
+
+/* 段落切换过渡遮罩 */
+.section-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    transform: translateY(-100%);
+    background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(0, 255, 136, 0.06) 30%,
+        rgba(0, 255, 136, 0.15) 50%,
+        rgba(0, 255, 136, 0.06) 70%,
+        transparent 100%
+    );
+}
+
+.section-transition::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    box-shadow: 0 0 20px var(--primary-glow),
+                0 0 60px var(--primary-glow),
+                0 0 100px rgba(0, 255, 136, 0.3);
+    transform: translateY(-50%);
+}
+
+.section-transition::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 0, 0, 0.03) 3px,
+        rgba(0, 0, 0, 0.03) 6px
+    );
+}
+
+/* 向下切换：上 → 中(渐缓) → 下 */
+.section-transition.down {
+    animation: scanDown 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scanDown {
+    0%   { transform: translateY(-100%); }
+    40%  { transform: translateY(0%); animation-timing-function: cubic-bezier(0.2, 0, 0.8, 1); }
+    100% { transform: translateY(100%); }
+}
+
+/* 向上切换：下 → 中(渐缓) → 上 */
+.section-transition.up {
+    animation: scanUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes scanUp {
+    0%   { transform: translateY(100%); }
+    40%  { transform: translateY(0%); animation-timing-function: cubic-bezier(0.2, 0, 0.8, 1); }
+    100% { transform: translateY(-100%); }
+}
+
+/* 切换时内容微缩放 */
+.section.switching {
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1),
+                opacity 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+    transform: scale(0.97);
+    opacity: 0.5;
 }
 
 .section-title {
@@ -773,7 +884,8 @@ body::after {
     font-family: var(--font-mono);
     font-size: 0.82rem;
     color: var(--text-bright);
-    min-width: 100px;
+    width: 150px;
+    flex-shrink: 0;
     letter-spacing: 0.5px;
 }
 
@@ -1045,6 +1157,28 @@ body::after {
     color: var(--primary);
 }
 
+/* ===== 经历 & 联系方式（合并段） ===== */
+.combined-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-top: 32px;
+}
+
+.combined-top .exp-card,
+.combined-top .campus-card {
+    background: var(--bg-card);
+    margin: 0;
+    max-width: none;
+    border: none;
+}
+
+.combined .contact-intro {
+    margin-top: 8px;
+    margin-bottom: 32px;
+}
+
 /* ===== 实习经历 ===== */
 .exp-card {
     display: grid;
@@ -1283,16 +1417,78 @@ a.contact-card:hover {
     color: var(--primary);
 }
 
-/* ===== 滚动动画 ===== */
+/* ===== 侧边导航点 ===== */
+.section-dots {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-bright);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+}
+
+.section-dot:hover,
+.section-dot.active {
+    background: var(--primary);
+    box-shadow: 0 0 8px var(--primary-glow);
+    transform: scale(1.4);
+}
+
+.section-dot::after {
+    content: attr(data-section);
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-dot:hover::after {
+    opacity: 1;
+    color: var(--primary);
+}
+
+/* ===== 滚动渐入动画 ===== */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* 标题特殊动画 */
+.section-title.reveal {
+    transform: translateX(-30px);
+}
+
+.section-title.reveal.visible {
+    transform: translateX(0);
 }
 
 /* ===== 响应式 ===== */
@@ -1314,6 +1510,8 @@ a.contact-card:hover {
     .projects-grid { grid-template-columns: 1fr; }
     .contact-cards { grid-template-columns: 1fr; }
     .job-grid { grid-template-columns: 1fr; }
+    .combined-top { grid-template-columns: 1fr; gap: 24px; }
     .container { padding: 0 20px; }
-    .section { padding: 60px 0; }
+    .section { height: auto; min-height: 100vh; padding: 60px 0; }
+    .section-dots { display: none; }
 }

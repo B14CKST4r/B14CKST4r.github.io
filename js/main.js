@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initAccordion();
     initSmoothScroll();
     initActiveNavLink();
+    initSectionDots();
+    initFullPageNav();
     initBackToTop();
     initScrollProgress();
 });
@@ -200,22 +202,25 @@ function initNavbarScroll() {
 // ===== 滚动显示动画 =====
 function initScrollReveal() {
     const revealElements = document.querySelectorAll(
-        '.project-block, .skill-category, .eval-card, .job-item, .edu-card, .exp-card, .campus-card, .contact-card, .about-content'
+        '.project-block, .skill-category, .eval-card, .job-item, .edu-card, .exp-card, .campus-card, .contact-card, .about-content, .combined-top, .section-title'
     );
 
-    revealElements.forEach(el => {
+    revealElements.forEach((el, i) => {
         el.classList.add('reveal');
+        el.style.transitionDelay = (i % 4) * 0.08 + 's';
     });
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+            } else {
+                entry.target.classList.remove('visible');
             }
         });
     }, {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px'
     });
 
     revealElements.forEach(el => observer.observe(el));
@@ -227,7 +232,7 @@ function initScrollReveal() {
                 el.classList.add('visible');
             }
         });
-    }, 300);
+    }, 400);
 }
 
 // ===== 平滑滚动 =====
@@ -272,6 +277,138 @@ function initActiveNavLink() {
                 link.style.color = '#00ff88';
             }
         });
+    });
+}
+
+// ===== 侧边导航点 =====
+function initSectionDots() {
+    const dots = document.querySelectorAll('.section-dot');
+    const sections = document.querySelectorAll('section[id]');
+
+    // 点击导航点滚动到对应 section
+    dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            const target = document.querySelector(dot.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    // 滚动时更新激活状态
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                dots.forEach(d => d.classList.remove('active'));
+                const activeDot = document.querySelector(`.section-dot[href="#${entry.target.id}"]`);
+                if (activeDot) activeDot.classList.add('active');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    sections.forEach(s => observer.observe(s));
+}
+
+// ===== 全屏导航（滚轮切换） =====
+function initFullPageNav() {
+    const sections = [...document.querySelectorAll('section[id]')];
+    const transition = document.getElementById('sectionTransition');
+    let currentIndex = 0;
+    let isAnimating = false;
+    let wheelAccum = 0;
+    let wheelTimeout = null;
+
+    function getCurrentIndex() {
+        let closest = 0;
+        let minDist = Infinity;
+        const center = window.innerHeight / 2;
+        sections.forEach((s, i) => {
+            const rect = s.getBoundingClientRect();
+            const dist = Math.abs(rect.top + rect.height / 2 - center);
+            if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        return closest;
+    }
+
+    function animateTransition(targetIndex) {
+        return new Promise(resolve => {
+            const currentIdx = getCurrentIndex();
+            const direction = targetIndex > currentIdx ? 'down' : 'up';
+
+            // 扫描线动画
+            transition.classList.add(direction);
+            // 当前段微缩放
+            const current = sections[currentIdx];
+            if (current) current.classList.add('switching');
+
+            setTimeout(() => {
+                transition.classList.remove('down', 'up');
+                if (current) current.classList.remove('switching');
+                resolve();
+            }, 800);
+        });
+    }
+
+    async function scrollToSection(index) {
+        if (index < 0 || index >= sections.length || isAnimating) return;
+        isAnimating = true;
+        currentIndex = index;
+
+        await animateTransition(index);
+        sections[index].scrollIntoView({ behavior: 'instant' });
+
+        setTimeout(() => { isAnimating = false; }, 300);
+    }
+
+    // 滚轮事件
+    window.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        wheelAccum += e.deltaY;
+
+        if (wheelTimeout) clearTimeout(wheelTimeout);
+        wheelTimeout = setTimeout(() => { wheelAccum = 0; }, 400);
+
+        if (Math.abs(wheelAccum) < 80) return;
+        wheelAccum = 0;
+
+        const idx = getCurrentIndex();
+        if (e.deltaY > 0) {
+            scrollToSection(idx + 1);
+        } else {
+            scrollToSection(idx - 1);
+        }
+    }, { passive: false });
+
+    // 键盘导航
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            e.preventDefault();
+            scrollToSection(getCurrentIndex() + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            scrollToSection(getCurrentIndex() - 1);
+        } else if (e.key === 'Home') {
+            e.preventDefault();
+            scrollToSection(0);
+        } else if (e.key === 'End') {
+            e.preventDefault();
+            scrollToSection(sections.length - 1);
+        }
+    });
+
+    // 触摸滑动
+    let touchStartY = 0;
+    window.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+        const diff = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diff) < 50) return;
+        const idx = getCurrentIndex();
+        if (diff > 0) scrollToSection(idx + 1);
+        else scrollToSection(idx - 1);
     });
 }
 
